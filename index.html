@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+    <head>
+    <link href="style.css" rel="stylesheet" />
+    <title>Ultimate text converybelt</title>
+    </head>
+    <body>
+        <div>
+            <h1>Ultimate text converybelt</h1>
+            <input id="input" placeholder="Pase your lines here..."
+            /><br />
+            <button id="button0" class="button">Deploy</button>
+
+            <p>Current line:</p>
+            <textarea id="curLineNum" readonly cols="60" rows="1" placeholder="-"></textarea>
+            <p>of:</p>
+            <textarea id="linesNum" readonly cols="60" rows="1" placeholder="-"></textarea>
+            <br />
+            <textarea id="curLine" class="text1" cols="60" rows="1" placeholder="Your 1st line ..."></textarea
+            >
+            <br />
+            <button class="button" id="button1">next</button>
+            <button class="button" id="button2">coppy to clickboard</button>
+
+            <p>All lines:</p>
+            <textarea id="list" class="text" cols="60" rows="10" placeholder="Your lines ..."></textarea>
+
+            <br />
+            <button class="button" id="button3">reset</button>
+
+            <ol id="vers"></ol>
+        </div>
+    
+        
+        <script>
+            const button0 = document.querySelector("#button0");
+            const button1 = document.querySelector("#button1");
+            const button2 = document.querySelector("#button2");
+            const button3 = document.querySelector("#button3");
+
+            var input = document.querySelector("input");
+
+            var arrayOfLines = [];    
+            var deplArray = [];   
+            
+            var linesNum;
+            var curLineNumber = 1;
+            var curLineTxt = "";
+
+            const copied = document.querySelector("#curLine");
+
+            button0.onclick = () => {
+                var string = input.value;
+                var arrayOfLines = string.split(">");
+
+                document.getElementById("curLineNum").value = curLineNumber;
+                linesNum = (arrayOfLines.length - 1);
+                document.getElementById("linesNum").value = linesNum;
+                document.getElementById("curLine").value = arrayOfLines[0];
+                
+                // This part might be corrected.It's not returning the order list. http://jsfiddle.net/nkQLM/1/
+                var lista = document.getElementById("list");
+                list.value = arrayOfLines.join("\n");
+              
+                document.getElementById("input").readOnly = true;
+                document.getElementById("input").value = "Deployed.";
+                document.getElementById("button0").disabled = 'true';
+
+                deplArray = arrayOfLines
+            }
+            button1.onclick = () => {
+                document.getElementById("curLine").value = deplArray[curLineNumber];
+                curLineNumber = curLineNumber + 1;
+                document.getElementById("curLineNum").value = curLineNumber;
+            };
+            button2.onclick = () => {
+                copied.select();
+                // I don't know how those lines working, but they're working
+                if (document.execCommand("copy")) {
+                  paseText.focus();
+                } else {
+                  alert("error");
+                 }
+            };
+            button3.onclick = () => {
+                history.go(0);
+            };
+        </script>
+    </body>
+</html>
